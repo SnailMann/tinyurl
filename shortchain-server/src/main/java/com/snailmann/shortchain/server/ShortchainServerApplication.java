@@ -1,4 +1,4 @@
-package com.snailmann.shortchain.shortchainserver;
+package com.snailmann.shortchain.server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

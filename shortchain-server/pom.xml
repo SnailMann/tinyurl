@@ -3,29 +3,65 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.1</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <groupId>com.snailmann.shortchain</groupId>
+        <artifactId>short-chain</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <groupId>com.snailmann.shortchain</groupId>
+
     <artifactId>shortchain-server</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
     <name>shortchain-server</name>
     <description>short chain server</description>
+
     <properties>
         <java.version>11</java.version>
     </properties>
+
     <dependencies>
+        <!--spring-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <!--storage-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <!--caffeine-->
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+        <!--prometheus-->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+        <!--snailmann-->
+        <dependency>
+            <groupId>com.snailmann.shortchain</groupId>
+            <artifactId>shortchain-common</artifactId>
         </dependency>
     </dependencies>
 

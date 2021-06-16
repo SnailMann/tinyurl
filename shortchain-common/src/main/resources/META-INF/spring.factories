@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.snailmann.myid.common.MyidCommonAutoConfiguration
+com.snailmann.shortchain.common.ShortchainCommonAutoConfiguration
