@@ -7,16 +7,16 @@
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.5.0</version>
     </parent>
-    <groupId>com.snailmann.shortchain</groupId>
-    <artifactId>short-chain</artifactId>
+    <groupId>com.snailmann.tinyurl</groupId>
+    <artifactId>tinyurl</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>short-chain</name>
-    <description>short chain sevice</description>
+    <name>tinyurl</name>
+    <description>tiny url sevice</description>
     <packaging>pom</packaging>
 
     <modules>
-        <module>shortchain-common</module>
-        <module>shortchain-server</module>
+        <module>tinyurl-common</module>
+        <module>tinyurl-server</module>
     </modules>
 
     <properties>
@@ -59,8 +59,8 @@
             </dependency>
             <!--snailmann-->
             <dependency>
-                <groupId>com.snailmann.shortchain</groupId>
-                <artifactId>shortchain-common</artifactId>
+                <groupId>com.snailmann.tinyurl</groupId>
+                <artifactId>tinyurl-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!--tools-->
