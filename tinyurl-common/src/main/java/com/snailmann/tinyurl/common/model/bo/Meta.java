@@ -1,4 +1,3 @@
-
 package com.snailmann.tinyurl.common.model.bo;
 
 import lombok.AllArgsConstructor;

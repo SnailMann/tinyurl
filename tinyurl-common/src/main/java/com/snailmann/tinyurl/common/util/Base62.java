@@ -218,10 +218,4 @@ public class Base62 {
 
     }
 
-    public static void main(String[] args) {
-        Base62 base62 = Base62.createInstance();
-        String encode = new String(base62.encode("123456".getBytes()));
-        System.out.println(encode);
-    }
-
 }

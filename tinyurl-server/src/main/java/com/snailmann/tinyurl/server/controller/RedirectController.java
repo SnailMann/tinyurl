@@ -1,10 +1,8 @@
 package com.snailmann.tinyurl.server.controller;
 
-import com.snailmann.tinyurl.common.core.exception.AddressNotFoundException;
 import com.snailmann.tinyurl.server.service.TinyUrlService;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,9 +28,6 @@ public class RedirectController {
     @GetMapping("/{key}")
     public void tinyUrl(@PathVariable String key, HttpServletResponse response) {
         String originalAddress = tinyUrlService.getOriginalAddress(key);
-        if (StringUtils.isBlank(originalAddress)) {
-            throw new AddressNotFoundException("not found");
-        }
         response.sendRedirect(originalAddress);
     }
 
