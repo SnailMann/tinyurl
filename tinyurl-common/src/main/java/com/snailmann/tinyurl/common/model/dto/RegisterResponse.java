@@ -1,9 +1,6 @@
 package com.snailmann.tinyurl.common.model.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * @author liwenjie
@@ -14,7 +11,34 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RegisterResponse {
 
+    private int code;
+
     private String tinyUrl;
 
+    public static RegisterResponse ok(String tinyUrl) {
+        return RegisterResponse.builder().code(Code.OK.getCode()).tinyUrl(tinyUrl).build();
+    }
+
+    public static RegisterResponse error() {
+        return RegisterResponse.builder().code(Code.ERROR.getCode()).tinyUrl(null).build();
+    }
+
+
+    public enum Code {
+
+        OK(10000, "OK"),
+        ERROR(99999, "Error"),
+        ;
+
+        @Getter
+        int code;
+        @Getter
+        String desc;
+
+        Code(int code, String desc) {
+            this.code = code;
+            this.desc = desc;
+        }
+    }
 
 }

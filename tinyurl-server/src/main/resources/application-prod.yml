@@ -1,29 +1,10 @@
 spring:
-  datasource: # mysql
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/tinyurl?createDatabaseIfNotExist=true&autoReconnect=true&useUnicode=true&characterEncoding=UTF8&useSSL=false
-    username: root
-    password: root
-  jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
-      javax:
-        persistence:
-          validation:
-            mode: none
-    hibernate:
-      ddl-auto: none
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    database-platform: org.hibernate.dialect.MySQL8Dialect
-    show-sql: false
   redis: # redis
-    cluster:
-      nodes: localhost:6379
+    host: localhost
+    port: 6379
     lettuce:
       pool:
         maxIdle: 5
         maxActive: 20
         maxWait: 10
-    timeout: 200
+    timeout: 2000

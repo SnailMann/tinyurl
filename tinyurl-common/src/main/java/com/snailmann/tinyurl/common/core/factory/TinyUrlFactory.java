@@ -5,6 +5,12 @@ package com.snailmann.tinyurl.common.core.factory;
  */
 public interface TinyUrlFactory {
 
-    String produce(String address);
+    /**
+     * get key of tiny url from original address
+     *
+     * @param originalAddress original address
+     * @return tiny key
+     */
+    String create(String originalAddress);
 
 }

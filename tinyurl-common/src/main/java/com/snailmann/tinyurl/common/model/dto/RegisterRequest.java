@@ -14,6 +14,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RegisterRequest {
 
-    private String realAddress;
+    private String address;
+
+    private Long ttl = 3600L;
 
 }
