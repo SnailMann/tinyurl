@@ -28,11 +28,11 @@ public class RegisterController {
     public RegisterResponse register(@RequestBody RegisterRequest request) {
         check(request);
         String address = request.getAddress();
-        boolean allowRepeat = request.getAllowRepeatRegistration();
+        boolean one2many = request.getOne2many();
         long ttl = request.getTtl();
 
         try {
-            String tinyUrl = tinyUrlService.register(address, allowRepeat, ttl);
+            String tinyUrl = tinyUrlService.register(address, one2many, ttl);
             log.info("address: {}, res: {}", address, tinyUrl);
             return RegisterResponse.ok(tinyUrl);
         } catch (Exception e) {

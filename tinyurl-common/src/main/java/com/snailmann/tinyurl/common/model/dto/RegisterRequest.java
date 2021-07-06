@@ -16,7 +16,7 @@ public class RegisterRequest {
 
     private String address;
 
-    private Boolean allowRepeatRegistration = true;
+    private Boolean one2many = true;
 
     private Long ttl = 3600L;
 

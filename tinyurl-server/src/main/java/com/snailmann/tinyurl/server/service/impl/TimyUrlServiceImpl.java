@@ -33,8 +33,8 @@ public class TimyUrlServiceImpl implements TinyUrlService {
     }
 
     @Override
-    public String register(String address, Boolean allowRepeat, Long ttl) {
-        String tinyKey = allowRepeat ? factoryA.create(address) : factoryB.create(address);
+    public String register(String address, Boolean one2many, Long ttl) {
+        String tinyKey = one2many ? factoryA.create(address) : factoryB.create(address);
         if (StringUtils.isBlank(tinyKey)) {
             throw new UnsupportedOperationException("key is blank");
         }

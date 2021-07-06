@@ -26,7 +26,6 @@ public class TinyUrlStorageImpl extends BaseRedisStorage implements TinyUrlStora
         // avoid modifying existing values
         return redisTemplate.opsForValue()
                 .setIfAbsent(formatKey(tinyKey), s, Duration.ofSeconds(ttl));
-
     }
 
     @Override
