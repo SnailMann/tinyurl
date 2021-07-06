@@ -17,7 +17,7 @@ public interface TinyUrlStorage {
      * @param tinyKey         key of tiny url
      * @param ttl             expire second
      */
-    void add(String originalAddress, String tinyKey, long ttl);
+    Boolean add(String originalAddress, String tinyKey, long ttl);
 
     /**
      * get a meta by key of tiny url

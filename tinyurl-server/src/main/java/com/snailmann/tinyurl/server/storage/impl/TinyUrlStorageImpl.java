@@ -18,22 +18,24 @@ import java.util.Optional;
 public class TinyUrlStorageImpl extends BaseRedisStorage implements TinyUrlStorage {
 
     @Override
-    public void add(String originalAddress, String tinyKey, long ttl) {
+    public Boolean add(String originalAddress, String tinyKey, long ttl) {
         Meta meta = Meta.builder().originalAddress(originalAddress)
                 .tinyKey(tinyKey).ttl(ttl).creation(System.currentTimeMillis())
                 .build();
-        String data = gson.toJson(meta);
-        redisTemplate.opsForValue()
-                .set(formatKey(tinyKey), data, Duration.ofSeconds(ttl));
+        String s = gson.toJson(meta);
+        // avoid modifying existing values
+        return redisTemplate.opsForValue()
+                .setIfAbsent(formatKey(tinyKey), s, Duration.ofSeconds(ttl));
+
     }
 
     @Override
     public Optional<Meta> get(String tinyKey) {
-        String data = redisTemplate.opsForValue().get(formatKey(tinyKey));
-        if (StringUtils.isBlank(data)) {
+        String s = redisTemplate.opsForValue().get(formatKey(tinyKey));
+        if (StringUtils.isBlank(s)) {
             return Optional.empty();
         }
-        return Optional.of(gson.fromJson(data, Meta.class));
+        return Optional.of(gson.fromJson(s, Meta.class));
     }
 
 }
