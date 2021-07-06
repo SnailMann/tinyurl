@@ -1,20 +1,22 @@
 package com.snailmann.tinyurl.common.util;
 
-import com.facebook.util.digest.MurmurHash;
+import com.google.common.hash.HashFunction;
+import com.google.common.hash.Hashing;
 
 /**
  * @author liwenjie
  */
 public class MurmurUtils {
 
-    private static final MurmurHash HASH = new MurmurHash(48281);
+    private static final HashFunction MURMUR_3_32 = Hashing.murmur3_32();
+    private static final HashFunction MURMUR_3_128 = Hashing.murmur3_128();
 
-    public static long smooth(String key) {
-        long code = HASH.hash(HASH.hashToLong(key.getBytes()));
-        if (code < 0) {
-            code *= -1;
-        }
-        return code;
+    public static int hash32(String key) {
+        return MURMUR_3_32.hashBytes(key.getBytes()).asInt();
+    }
+
+    public static long hash64(String key) {
+        return MURMUR_3_128.hashBytes(key.getBytes()).asLong();
     }
 
 }

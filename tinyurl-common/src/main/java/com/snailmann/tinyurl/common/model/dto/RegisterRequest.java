@@ -16,6 +16,8 @@ public class RegisterRequest {
 
     private String address;
 
+    private Boolean allowRepeatRegistration = true;
+
     private Long ttl = 3600L;
 
 }

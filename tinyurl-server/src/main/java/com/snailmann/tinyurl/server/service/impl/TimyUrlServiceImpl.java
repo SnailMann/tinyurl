@@ -1,13 +1,14 @@
 package com.snailmann.tinyurl.server.service.impl;
 
 import com.snailmann.tinyurl.common.core.exception.AddressNotFoundException;
-import com.snailmann.tinyurl.common.core.exception.TinyKeyConsistencyConflictException;
 import com.snailmann.tinyurl.common.core.factory.TinyUrlFactory;
 import com.snailmann.tinyurl.common.model.bo.Meta;
 import com.snailmann.tinyurl.common.util.TinyUtils;
 import com.snailmann.tinyurl.server.service.TinyUrlService;
 import com.snailmann.tinyurl.server.storage.TinyUrlStorage;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -19,26 +20,25 @@ import java.util.Optional;
 @Service
 public class TimyUrlServiceImpl implements TinyUrlService {
 
-    private final TinyUrlFactory tinyUrlFactory;
-
+    private final TinyUrlFactory factoryA;
+    private final TinyUrlFactory factoryB;
     private final TinyUrlStorage tinyUrlStorage;
 
-    public TimyUrlServiceImpl(TinyUrlFactory tinyUrlFactory, TinyUrlStorage tinyUrlStorage) {
-        this.tinyUrlFactory = tinyUrlFactory;
+    public TimyUrlServiceImpl(@Qualifier("IDTinyUrlFactory") TinyUrlFactory factoryA,
+                              @Qualifier("hashTinyUrlFactory") TinyUrlFactory factoryB,
+                              TinyUrlStorage tinyUrlStorage) {
+        this.factoryA = factoryA;
+        this.factoryB = factoryB;
         this.tinyUrlStorage = tinyUrlStorage;
     }
 
     @Override
-    public String register(String address, Long ttl) {
-        String tinyKey = tinyUrlFactory.create(address);
-        Optional<Meta> metaOptional = tinyUrlStorage.get(tinyKey);
-        // the current version ignores concurrency
-        if (metaOptional.isEmpty()) {
-            tinyUrlStorage.add(address, tinyKey, ttl);
-        } else {
-            throw new TinyKeyConsistencyConflictException(
-                    String.format("consistency conflict, address: %s, tinykey: %s", address, tinyKey));
+    public String register(String address, Boolean allowRepeat, Long ttl) {
+        String tinyKey = allowRepeat ? factoryA.create(address) : factoryB.create(address);
+        if (StringUtils.isBlank(tinyKey)) {
+            throw new UnsupportedOperationException("key is blank");
         }
+        tinyUrlStorage.add(address, tinyKey, ttl);
         return TinyUtils.format(tinyKey);
     }
 
