@@ -24,6 +24,12 @@ public class HashTinyUrlFactory implements TinyUrlFactory {
         this.tinyUrlStorage = tinyUrlStorage;
     }
 
+    /**
+     * 因为需要判断是否重复，所以存在并发问题，有待修改
+     *
+     * @param address
+     * @return
+     */
     @Override
     public String create(String address) {
         long hc = 1;
