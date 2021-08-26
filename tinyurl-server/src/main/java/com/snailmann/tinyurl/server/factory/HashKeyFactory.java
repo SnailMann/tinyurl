@@ -1,9 +1,9 @@
 package com.snailmann.tinyurl.server.factory;
 
-import com.snailmann.tinyurl.common.core.factory.TinyUrlFactory;
+import com.snailmann.tinyurl.common.core.factory.KeyFactory;
 import com.snailmann.tinyurl.common.model.bo.Meta;
 import com.snailmann.tinyurl.common.util.Base62;
-import com.snailmann.tinyurl.server.storage.TinyUrlStorage;
+import com.snailmann.tinyurl.server.storage.TinyStorage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -14,14 +14,15 @@ import java.util.Optional;
  */
 @Slf4j
 @Component
-public class HashTinyUrlFactory implements TinyUrlFactory {
+@Deprecated
+public class HashKeyFactory implements KeyFactory {
 
     private final Base62 base62 = Base62.createInstance();
 
-    private final TinyUrlStorage tinyUrlStorage;
+    private final TinyStorage tinyStorage;
 
-    public HashTinyUrlFactory(TinyUrlStorage tinyUrlStorage) {
-        this.tinyUrlStorage = tinyUrlStorage;
+    public HashKeyFactory(TinyStorage tinyStorage) {
+        this.tinyStorage = tinyStorage;
     }
 
     /**
@@ -36,7 +37,7 @@ public class HashTinyUrlFactory implements TinyUrlFactory {
         String key;
         for (int times = 1; ; times++) {
             key = key(times, hc);
-            Optional<Meta> metaOptional = tinyUrlStorage.get(key);
+            Optional<Meta> metaOptional = tinyStorage.get(key);
             // return if empty
             if (metaOptional.isEmpty()) {
                 break;
@@ -60,7 +61,7 @@ public class HashTinyUrlFactory implements TinyUrlFactory {
         if (times <= 1) {
             bytes = base62(hc);
         } else {
-            // hc = hc + 2^ times
+            // hc = hc + 2^times
             hc += Math.pow(2, times);
             bytes = base62(hc);
         }

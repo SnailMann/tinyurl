@@ -1,4 +1,3 @@
-
 spring:
   redis: # redis
     host: localhost

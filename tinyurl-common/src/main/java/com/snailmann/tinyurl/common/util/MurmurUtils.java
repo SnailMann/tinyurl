@@ -9,6 +9,7 @@ import com.google.common.hash.Hashing;
 public class MurmurUtils {
 
     private static final HashFunction MURMUR_3_32 = Hashing.murmur3_32();
+
     private static final HashFunction MURMUR_3_128 = Hashing.murmur3_128();
 
     public static int hash32(String key) {

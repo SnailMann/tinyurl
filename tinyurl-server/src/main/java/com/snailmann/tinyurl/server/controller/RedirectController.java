@@ -1,6 +1,6 @@
 package com.snailmann.tinyurl.server.controller;
 
-import com.snailmann.tinyurl.server.service.TinyUrlService;
+import com.snailmann.tinyurl.server.service.TinyService;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -18,16 +18,16 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/tinyurl")
 public class RedirectController {
 
-    private final TinyUrlService tinyUrlService;
+    private final TinyService tinyService;
 
-    public RedirectController(TinyUrlService tinyUrlService) {
-        this.tinyUrlService = tinyUrlService;
+    public RedirectController(TinyService tinyService) {
+        this.tinyService = tinyService;
     }
 
     @SneakyThrows
     @GetMapping("/{key}")
     public void tinyUrl(@PathVariable String key, HttpServletResponse response) {
-        String originalAddress = tinyUrlService.getOriginalAddress(key);
+        String originalAddress = tinyService.getOriginalAddress(key);
         response.sendRedirect(originalAddress);
     }
 

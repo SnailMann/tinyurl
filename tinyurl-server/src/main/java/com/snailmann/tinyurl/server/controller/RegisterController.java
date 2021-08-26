@@ -2,7 +2,7 @@ package com.snailmann.tinyurl.server.controller;
 
 import com.snailmann.tinyurl.common.model.dto.RegisterRequest;
 import com.snailmann.tinyurl.common.model.dto.RegisterResponse;
-import com.snailmann.tinyurl.server.service.TinyUrlService;
+import com.snailmann.tinyurl.server.service.TinyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,21 +18,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/tinyurl-server/v1/register")
 public class RegisterController {
 
-    private final TinyUrlService tinyUrlService;
+    private final TinyService tinyService;
 
-    public RegisterController(TinyUrlService tinyUrlService) {
-        this.tinyUrlService = tinyUrlService;
+    public RegisterController(TinyService tinyService) {
+        this.tinyService = tinyService;
     }
 
-    @PostMapping("/")
+    @PostMapping
     public RegisterResponse register(@RequestBody RegisterRequest request) {
         check(request);
         String address = request.getAddress();
-        boolean one2many = request.getOne2many();
         long ttl = request.getTtl();
 
         try {
-            String tinyUrl = tinyUrlService.register(address, one2many, ttl);
+            String tinyUrl = tinyService.register(address, ttl);
             log.info("address: {}, res: {}", address, tinyUrl);
             return RegisterResponse.ok(tinyUrl);
         } catch (Exception e) {

@@ -5,7 +5,7 @@ import com.snailmann.tinyurl.server.storage.constant.RedisKeys;
 /**
  * @author liwenjie
  */
-public interface IDGenStorage {
+public interface BucketStorage {
 
     /**
      * increase
@@ -21,8 +21,8 @@ public interface IDGenStorage {
      * @param bucket bucket number
      * @return redis key
      */
-    default String formatkey(int bucket) {
-        return String.format(RedisKeys.GEN_ID_BUCKET_KEY, bucket);
+    default String format(int bucket) {
+        return String.format(RedisKeys.BUCKET_KEY_FORMAT, bucket);
     }
 
 }

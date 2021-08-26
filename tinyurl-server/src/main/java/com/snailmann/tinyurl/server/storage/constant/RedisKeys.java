@@ -5,7 +5,6 @@ package com.snailmann.tinyurl.server.storage.constant;
  */
 public class RedisKeys {
 
-    public static final String TINY_URL_KEY = "tiny:%s";
-
-    public static final String GEN_ID_BUCKET_KEY = "gen-id:bucket-{%s}";
+    public static final String TINY_URL_KEY_FORMAT = "tiny:%s";
+    public static final String BUCKET_KEY_FORMAT = "bucket:{%s}";
 }

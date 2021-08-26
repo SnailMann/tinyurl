@@ -3,7 +3,7 @@ package com.snailmann.tinyurl.common.core.factory;
 /**
  * @author liwenjie
  */
-public interface TinyUrlFactory {
+public interface KeyFactory {
 
     /**
      * get key of tiny url from original address

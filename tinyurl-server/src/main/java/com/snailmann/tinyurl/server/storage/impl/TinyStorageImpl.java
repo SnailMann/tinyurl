@@ -2,7 +2,7 @@ package com.snailmann.tinyurl.server.storage.impl;
 
 import com.snailmann.tinyurl.common.model.bo.Meta;
 import com.snailmann.tinyurl.server.storage.BaseRedisStorage;
-import com.snailmann.tinyurl.server.storage.TinyUrlStorage;
+import com.snailmann.tinyurl.server.storage.TinyStorage;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
@@ -15,7 +15,7 @@ import java.util.Optional;
  */
 @Slf4j
 @Repository
-public class TinyUrlStorageImpl extends BaseRedisStorage implements TinyUrlStorage {
+public class TinyStorageImpl extends BaseRedisStorage implements TinyStorage {
 
     @Override
     public Boolean add(String originalAddress, String tinyKey, long ttl) {
@@ -25,12 +25,12 @@ public class TinyUrlStorageImpl extends BaseRedisStorage implements TinyUrlStora
         String s = gson.toJson(meta);
         // avoid modifying existing values
         return redisTemplate.opsForValue()
-                .setIfAbsent(formatKey(tinyKey), s, Duration.ofSeconds(ttl));
+                .setIfAbsent(format(tinyKey), s, Duration.ofSeconds(ttl));
     }
 
     @Override
     public Optional<Meta> get(String tinyKey) {
-        String s = redisTemplate.opsForValue().get(formatKey(tinyKey));
+        String s = redisTemplate.opsForValue().get(format(tinyKey));
         if (StringUtils.isBlank(s)) {
             return Optional.empty();
         }

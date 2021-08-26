@@ -1,7 +1,7 @@
 package com.snailmann.tinyurl.server.storage.impl;
 
 import com.snailmann.tinyurl.server.storage.BaseRedisStorage;
-import com.snailmann.tinyurl.server.storage.IDGenStorage;
+import com.snailmann.tinyurl.server.storage.BucketStorage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
@@ -10,11 +10,11 @@ import org.springframework.stereotype.Repository;
  */
 @Slf4j
 @Repository
-public class IDGenStorageImpl extends BaseRedisStorage implements IDGenStorage {
+public class BucketStorageImpl extends BaseRedisStorage implements BucketStorage {
 
     @Override
     public Long increase(Integer bucket) {
-        String key = formatkey(bucket);
+        String key = format(bucket);
         return redisTemplate.opsForValue()
                 .increment(key);
     }
